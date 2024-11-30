@@ -7,6 +7,10 @@ const vagasRoutes = require('./routes/vagas');
 const app = express();
 app.use(bodyParser.json());
 
+app.get('/', (req, res) => {
+    res.send('Servidor está funcionando!');
+});
+
 // sincronizar BD
 sequelize.sync().then(() => {
     console.log('Database synchronized');
