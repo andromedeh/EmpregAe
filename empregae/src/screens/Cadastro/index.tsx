@@ -2,10 +2,9 @@ import { RootStackParamList } from '@/src/utils/types';
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types';
 import { useNavigation } from 'expo-router';
 import { Image } from 'react-native';
-import { ContainerPrincipal, TextoCampo, TextoHiperLink, TextoHiperLinkContainer } from './styles';
+import { ContainerPrincipal, TextoCampo, TextoHiperLink } from './styles';
 import { Campo } from '@/src/components/Campo';
 import { Botao } from '../../components/Botao'
-import React from 'react';
 
 
 type PropsNavigate = NativeStackScreenProps<RootStackParamList>;
@@ -25,7 +24,7 @@ export default function Cadastro({ route }: any) {
   return (
     <ContainerPrincipal>
       <Image
-        style={{ width: '100%' }}
+        style={{ width: '100%'}}
         source={require('../../assets/images/Logo.png')}
       />
       <TextoCampo>Nome</TextoCampo>
@@ -69,10 +68,9 @@ export default function Cadastro({ route }: any) {
         corTexto='#FFFFFF'
         marginTop={100}
       />
-      <TextoHiperLinkContainer onPress={() => handleLogin()}>
-        <TextoHiperLink>Já tem uma conta? Faça login aqui!</TextoHiperLink>
-      </TextoHiperLinkContainer>
+      <TextoHiperLink onPress={() => handleLogin()}>
+        Já tem uma conta? Faça login aqui!
+      </TextoHiperLink>
     </ContainerPrincipal>
   );
 }
-

@@ -14,13 +14,10 @@ type Props = {
 
 export function Botao({ onPress, texto, tamanho, corFundo, corTexto, marginTop }: Props) {
   return (
-    <Container
-      onPress={onPress}
-      tamanho={tamanho}
-      corFundo={corFundo}
-      marginTop={marginTop}
-    >
-      <Text corTexto={corTexto}>{texto}</Text>
-    </Container>
+    <TouchableOpacity onPress={onPress}>
+      <Container tamanho={tamanho} corFundo={corFundo} marginTop={marginTop}>
+        <Text corTexto={corTexto}>{texto}</Text>
+      </Container>
+    </TouchableOpacity>
   );
 }

@@ -7,7 +7,6 @@ import { Campo } from '@/src/components/Campo';
 import { Botao } from '../../components/Botao';
 import { BarraInferior } from '../../components/BarraInferior';
 import { Feather } from '@expo/vector-icons';
-import React from 'react';
 
 type PropsNavigate = NativeStackScreenProps<RootStackParamList>;
 

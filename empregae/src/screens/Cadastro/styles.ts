@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
-import { TouchableOpacity } from 'react-native';
+
+
 
 export const ContainerPrincipal = styled.View`
   flex: 1;
@@ -15,14 +16,12 @@ export const TextoCampo = styled.Text`
   font-size: 14px;
 `;
 
-export const TextoHiperLinkContainer = styled(TouchableOpacity)`
-  align-self: center;
-  margin-top: 100px;
-`;
-
 export const TextoHiperLink = styled.Text`
+  align-self: center;
   //font-family: 'Istok Web';
   color: #265019;
   font-weight: bold;
+  padding-top: 100px;
   font-size: 14px;
 `;
+
