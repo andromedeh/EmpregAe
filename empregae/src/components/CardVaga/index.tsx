@@ -10,7 +10,7 @@ interface Data{
     id: number;
     titulo: string;
     status: string;
-  }
+}
 
 
 type Props = NativeStackScreenProps<RootStackParamList>;
