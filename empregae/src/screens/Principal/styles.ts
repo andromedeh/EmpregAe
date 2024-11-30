@@ -27,5 +27,5 @@ export const TextVagas = styled.Text`
   font-size: 14px;
   font-weight: 700;
   text-align: center;
-  color: #000000};
+  color: #000000;
 `;

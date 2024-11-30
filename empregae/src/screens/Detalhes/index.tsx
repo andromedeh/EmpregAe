@@ -1,7 +1,7 @@
 import { RootStackParamList } from '@/src/utils/types';
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types';
 import { useNavigation } from 'expo-router';
-import { Image, View } from 'react-native';
+import { FlatList, Image, StyleSheet } from 'react-native';
 import { Wrapper, ContainerPrincipal, Imagem, TextoCampo, TextoHiperLink, BotaoVoltar, TextoVoltar } from './styles';
 import { Campo } from '@/src/components/Campo';
 import { Botao } from '../../components/Botao';
@@ -18,98 +18,69 @@ export default function Detalhes({ route }: any) {
     navigation.navigate('Login');
   }
 
-  /*function funcao_de_cadastrar() {
-    //execucao
-  }*/
+  const campos = [
+    { label: 'Título da vaga', texto: 'Texto...' },
+    { label: 'ID', texto: 'Texto...' },
+    { label: 'Status', texto: 'Texto...' },
+    { label: 'Data de Cadastro', texto: 'Texto...' },
+    { label: 'Descrição', texto: 'Texto...' },
+    { label: 'Telefone', texto: 'Texto...' },
+    { label: 'Empresa', texto: 'Texto...' },
+  ];
+  const renderItem = ({ item }: { item: { label: string, texto: string } }) => {
+    const alturaCampo = item.label === 'Descrição' ? 86 : 49; // Aumenta a altura do campo "Descrição"
+    return (
+      <>
+        <TextoCampo>{item.label}</TextoCampo>
+        <Campo
+          placeholder="Texto..."
+          largura={369}
+          altura={alturaCampo}
+          borda={10}
+          corFundo="#FFFFFF"
+          corTexto="#265019"
+          corBorda="#BCFFA7"
+          marginTop={10}
+          editavel={false}
+          texto={item.texto}
+        />
+      </>
+    );
+  };
 
   return (
     <Wrapper>
       <Imagem>
         <Image
-          style={{ width: '100%'}}
+          style={{ width: '100%' }}
           source={require('../../assets/images/Logo.png')}
         />
       </Imagem>
-    <ContainerPrincipal>
-      {/*<BotaoVoltar onPress={() => navigation.popToTop()}>
-          <Feather name="arrow-left" size={24} color="black" />
-          <TextoVoltar> Voltar </TextoVoltar>
-        </BotaoVoltar>*/}
-      <TextoCampo>Título da vaga</TextoCampo>
-      <Campo
-        placeholder="Texto..."
-        largura={369}
-        altura={49}
-        borda={10}
-        corFundo="#FFFFFF"
-        corTexto="#265019"
-        corBorda="#BCFFA7"
-        marginTop={10}
-        editavel={false}
-        texto="Texto..."
-      />
-      <TextoCampo>ID</TextoCampo>
-      <Campo
-        placeholder="Texto..."
-        largura={369}
-        altura={49}
-        borda={10}
-        corFundo="#FFFFFF"
-        corTexto="#265019"
-        corBorda="#BCFFA7"
-        marginTop={10}
-        editavel={false}
-        texto="Texto..."
-      />
-      <TextoCampo>Status</TextoCampo>
-      <Campo
-        placeholder="Texto..."
-        largura={369}
-        altura={49}
-        borda={10}
-        corFundo="#FFFFFF"
-        corTexto="#265019"
-        corBorda="#BCFFA7"
-        marginTop={10}
-        editavel={false}
-        texto="Texto..."
-      />
-      <TextoCampo>Data de Cadastro</TextoCampo>
-      <Campo
-        placeholder="Texto..."
-        largura={369}
-        altura={49}
-        borda={10}
-        corFundo="#FFFFFF"
-        corTexto="#265019"
-        corBorda="#BCFFA7"
-        marginTop={10}
-        editavel={false}
-        texto="Texto..."
-      />
-      <TextoCampo>Descrição</TextoCampo>
-      <Campo
-        placeholder="Texto..."
-        largura={369}
-        altura={86}
-        borda={10}
-        corFundo="#FFFFFF"
-        corTexto="#265019"
-        corBorda="#BCFFA7"
-        marginTop={10}
-        editavel={false}
-        texto="Texto..."
-      />
-      <Botao
-        onPress={() => handleLogin()}
-        texto="Contatar"
-        tamanho={96}
-        corFundo='#5FB643'
-        corTexto='#FFFFFF'
-        marginTop={20}
-      />
-    </ContainerPrincipal>
-    <BarraInferior />
+      <ContainerPrincipal>
+        <FlatList
+          data={campos}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
+          style={styles.flatList}
+          showsVerticalScrollIndicator={true}
+        />
+        <Botao
+          onPress={() => handleLogin()}
+          texto="Contatar"
+          tamanho={96}
+          corFundo='#5FB643'
+          corTexto='#FFFFFF'
+          marginTop={10}
+        />
+      </ContainerPrincipal>
+      <BarraInferior />
     </Wrapper>
   );
 }
+
+const styles = StyleSheet.create({
+  flatList: {
+    maxHeight: 512, // Define a altura máxima da FlatList
+    marginBottom: 20, // Espaço inferior entre a lista e o botão
+  },
+});

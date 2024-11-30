@@ -10,7 +10,7 @@ type TextProps = {
   corTexto: string;
 };
 
-export const Container = styled.View<ContainerProps>`
+export const Container = styled.TouchableOpacity<ContainerProps>`
   width: ${({ tamanho }: any) => `${tamanho}px`};  
   height: 32px;                              
   background-color: ${({ corFundo }: any) => corFundo};
