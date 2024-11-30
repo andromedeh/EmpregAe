@@ -1,6 +1,6 @@
 import styled from 'styled-components/native'
 
-export const Container = styled.TouchableOpacity`
+export const Container = styled.View`
   background-color: #FFFFFF;
   border: 1px solid #5FB643;
   align-items: left;
@@ -37,7 +37,7 @@ export const Status = styled.Text`
   color: #265019
 `;
 
-export const BotaoAbrir = styled.View`
+export const BotaoAbrir = styled.TouchableOpacity`
     border-radius: 0 16px 16px 0;
     padding: 0 24px;
     background-color: #5FB643;

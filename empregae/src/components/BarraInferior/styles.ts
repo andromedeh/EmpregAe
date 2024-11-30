@@ -8,9 +8,11 @@ export const Container = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+  position: absolute;
+  bottom: 0;
 `;
 
-export const Icone = styled.View`
+export const Icone = styled.TouchableOpacity`
   margin-left: 110;
   align-items: center;
   width: 45px;

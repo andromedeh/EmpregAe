@@ -19,12 +19,12 @@ export default function Vaga({id, titulo, status}: Data) {
     const navigation = useNavigation<Props['navigation']>();
     
     return (
-        <Container onPress={() => navigation.navigate('Detalhes')}>
+        <Container >
             <Conteudo>
                 <Titulo numberOfLines={1}>{titulo}</Titulo>
                 <Status numberOfLines={1}>Status: {status}</Status>
             </Conteudo>
-            <BotaoAbrir>
+            <BotaoAbrir onPress={() => navigation.navigate('Detalhes')}>
                 <Feather name="maximize-2" size={32} color={'#FFFFFF'} />
             </BotaoAbrir>
         </Container>
