@@ -1,7 +1,7 @@
 {
-  "name": "empregae-api",
+  "name": "empregae",
+  "main": "expo-router/entry",
   "version": "1.0.0",
-  "main": "server.js",
   "scripts": {
     "start": "nodemon --exec node server.js",
     "reset-project": "node ./scripts/reset-project.js",
@@ -31,7 +31,6 @@
     "expo-web-browser": "~13.0.3",
     "express": "^4.21.1",
     "formik": "^2.4.6",
-    "nodemon": "^3.1.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.74.5",
@@ -44,7 +43,6 @@
     "sequelize": "^6.37.5",
     "sqlite3": "^5.1.7",
     "styled-components": "^6.1.13",
-    "uuid": "^11.0.3",
     "yup": "^1.4.0"
   },
   "devDependencies": {
@@ -58,9 +56,5 @@
     "react-test-renderer": "18.2.0",
     "typescript": "~5.3.3"
   },
-  "private": true,
-  "description": "This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).",
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "private": true
 }
