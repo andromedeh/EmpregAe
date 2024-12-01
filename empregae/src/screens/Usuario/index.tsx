@@ -1,34 +1,82 @@
 import { RootStackParamList } from '@/src/utils/types';
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types';
 import { useNavigation } from 'expo-router';
-import { Image, View } from 'react-native';
+import { Alert, Image, View } from 'react-native';
 import { ContainerPrincipal, TextoCampo, TextoHiperLink, BotaoVoltar, TextoVoltar } from './styles';
 import { Campo } from '@/src/components/Campo';
 import { Botao } from '../../components/Botao';
 import { BarraInferior } from '../../components/BarraInferior';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Feather } from '@expo/vector-icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import api from '@/src/services/api';
 
 type PropsNavigate = NativeStackScreenProps<RootStackParamList>;
 
 export default function Usuario({ route }: any) {
 
+  const [id, setId] = useState('');
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+
+  const handleEditar = async () => {
+    try {
+      const jsonValue = JSON.stringify({
+        "id": id,
+        "nome": nome,
+        "email": email,
+        "senha": senha
+      });
+      await AsyncStorage.setItem('user', jsonValue);
+      const response = await api.put(`/api/usuarios/${id}`, {
+        "id": id,
+        "nome": nome,
+        "email": email,
+        "senha": senha
+      });
+
+      if (response.status === 200) {
+        alert('Dados atualizados com sucesso!');
+      } else {
+        alert('Falha ao atualizar os dados!');
+      }
+    } catch (e) {
+      console.log("Erro ao atualizar!", e);
+      alert(`Erro ao tentar atualizar`);
+    }
+  };
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const jsonValue = await AsyncStorage.getItem('user');
+        if (jsonValue !== null) {
+          let user = JSON.parse(jsonValue);
+          const response = await api.get(`/api/usuarios/${user.id}`);
+          user = response.data;
+          setNome(user.nome);
+          setEmail(user.email);
+          setSenha(user.senha);
+          setId(user.id);
+        } else {
+          console.log('Usuário não encontrado.');
+        }
+      } catch (e) {
+        console.log('Erro ao obter dados: ', e);
+      }
+    };
+    getData();
+  }, []);
+
   const navigation = useNavigation<PropsNavigate['navigation']>();
 
-  function handleLogin() {
+  function handleLogout() {
     navigation.navigate('Login');
   }
 
-  /*function funcao_de_cadastrar() {
-    //execucao
-  }*/
-
   return (
     <ContainerPrincipal>
-      {/*<BotaoVoltar onPress={() => navigation.popToTop()}>
-          <Feather name="arrow-left" size={24} color="black" />
-          <TextoVoltar> Voltar </TextoVoltar>
-        </BotaoVoltar>*/}
       <Image
         source={require('../../assets/images/Logo.png')}
       />
@@ -42,7 +90,9 @@ export default function Usuario({ route }: any) {
         corTexto="#265019"
         corBorda="#265019"
         marginTop={10}
-        editavel={false}
+        editavel={true}
+        texto={nome}
+        onChange={setNome}
       />
       <TextoCampo>Email</TextoCampo>
       <Campo
@@ -54,7 +104,9 @@ export default function Usuario({ route }: any) {
         corTexto="#265019"
         corBorda="#265019"
         marginTop={10}
-        editavel={false}
+        editavel={true}
+        texto={email}
+        onChange={setEmail}
 
       />
       <TextoCampo>Senha</TextoCampo>
@@ -67,10 +119,12 @@ export default function Usuario({ route }: any) {
         corTexto="#265019"
         corBorda="#265019"
         marginTop={10}
-        editavel={false}
+        editavel={true}
+        texto={senha}
+        onChange={setSenha}
       />
       <Botao
-        onPress={() => handleLogin()}
+        onPress={handleEditar}
         texto="Alterar dados"
         tamanho={118}
         corFundo='#5FB643'
@@ -79,7 +133,7 @@ export default function Usuario({ route }: any) {
       />
 
       <Botao
-        onPress={() => handleLogin()}
+        onPress={() => handleLogout()}
         texto="Sair da conta"
         tamanho={118}
         corFundo='#265019'

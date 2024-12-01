@@ -6,6 +6,36 @@ import Cadastro from '../src/screens/Cadastro';
 import Usuario from '../src/screens/Usuario';
 import Detalhes from '../src/screens/Detalhes';
 import Principal from '../src/screens/Principal';
+import { ThemeProvider } from 'styled-components';
+import { StatusBar } from 'expo-status-bar';
+import { Ionicons } from '@expo/vector-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+const HomeStack = createNativeStackNavigator();
+
+function Auth() {
+
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        tabBarStyle: { display: 'none' },
+      })}
+    >
+      <Tab.Screen name="Principal">
+        {() => (
+          <HomeStack.Navigator screenOptions={{ headerShown: false }}>
+            <HomeStack.Screen name="Principal" component={Principal} />
+            <HomeStack.Screen name="Detalhes" component={Detalhes} />
+          </HomeStack.Navigator>
+        )}
+      </Tab.Screen>
+      <Tab.Screen name="Usuario" component={Usuario} />
+    </Tab.Navigator>
+  )
+}
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -18,6 +48,7 @@ export default function App() {
         <Stack.Screen name="Cadastro" component={Cadastro} />
         <Stack.Screen name="Usuario" component={Usuario} />
         <Stack.Screen name="Detalhes" component={Detalhes} />
+        <Stack.Screen name="Auth" component={Auth} />
       </Stack.Navigator>
     </NavigationContainer>
   );

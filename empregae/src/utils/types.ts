@@ -9,6 +9,7 @@ export type VagaProps = {
 };
 
 export type RootStackParamList = {
+  Auth: { screen: string };
   Login: undefined;
   Principal: undefined;
   Cadastro: undefined;

@@ -89,5 +89,6 @@ export default function Principal({ route }: any) {
 const styles = StyleSheet.create({
   vagas: {
     maxHeight: 512, // Define a altura máxima da FlatList
+    marginBottom: 60,
   },
 });

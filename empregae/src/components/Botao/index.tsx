@@ -10,15 +10,19 @@ type Props = {
   corFundo: string;
   corTexto: string;
   marginTop?: number;
+  disabled?: boolean;  // Permitir passar o estado disabled
+  style?: object;
 };
 
-export function Botao({ onPress, texto, tamanho, corFundo, corTexto, marginTop }: Props) {
+export function Botao({ onPress, texto, tamanho, corFundo, corTexto, marginTop, disabled = false, style }: Props) {
   return (
     <Container
       onPress={onPress}
       tamanho={tamanho}
       corFundo={corFundo}
       marginTop={marginTop}
+      style={[style, disabled ? { opacity: 0.5 } : null]}  // Modificar a opacidade quando desabilitado
+      disabled={disabled}
     >
       <Text corTexto={corTexto}>{texto}</Text>
     </Container>

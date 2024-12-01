@@ -3,6 +3,7 @@ import { Botao } from '../../components/Botao';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '@/src/utils/types';
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Campo } from '@/src/components/Campo';
 import React from 'react';
 import { useState } from 'react';
@@ -11,9 +12,7 @@ import api from '../../services/api';
 type Props = NativeStackScreenProps<RootStackParamList>;
 
 export default function Login() {
-
   const navigation = useNavigation<Props['navigation']>();
-
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -23,14 +22,15 @@ export default function Login() {
       alert('Por favor, preencha ambos os campos!');
       return;
     }
-
     try {
       const response = await api.get('/api/usuarios');
       const users = response.data;
       const user = users.find((u: { email: string; senha: string }) => u.email === email && u.senha === senha);
 
       if (user) {
-        navigation.navigate('Principal');
+        const jsonValue = JSON.stringify(user);
+        await AsyncStorage.setItem('user', jsonValue);
+        navigation.navigate('Auth', { screen: 'Principal' });
       } else {
         console.log('Login falhou!');
         alert('Email ou senha incorretos.');

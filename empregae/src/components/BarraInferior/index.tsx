@@ -11,13 +11,13 @@ export function BarraInferior() {
   const navigation = useNavigation<Props['navigation']>();
   return (
     <Container>
-      <Icone onPress={() => navigation.navigate('Principal')}>
+      <Icone onPress={() => navigation.navigate('Auth', { screen: 'Principal' })}>
         <Feather name="home" color={'#ffffff'} size={30} />
         <Texto>
           Principal
         </Texto>
       </Icone>
-      <Icone onPress={() => navigation.navigate('Usuario')}>
+      <Icone onPress={() => navigation.navigate('Auth', { screen: 'Usuario' })}>
         <Feather name="user" color={'#ffffff'} size={30} />
         <Texto>
           Perfil

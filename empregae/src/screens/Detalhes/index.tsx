@@ -100,6 +100,7 @@ export default function Detalhes({ route }: any) {
           corFundo='#5FB643'
           corTexto='#FFFFFF'
           marginTop={10}
+          disabled={vaga.status !== 'aberta'}  // Desabilita o botão se o status não for 'aberto'
         />
       </ContainerPrincipal>
       <BarraInferior />
