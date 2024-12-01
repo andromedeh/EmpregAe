@@ -30,7 +30,6 @@ export const Texto = styled.TextInput<TextoProps>`
   font-size: 16px;
   padding-left: 8px;
   color: ${({ corTexto }: any) => corTexto};
-  //font-family: 'Istok Web';
 `;
 
 export const TextoExibicao = styled.Text<TextoProps>`

@@ -25,5 +25,4 @@ export const Container = styled.TouchableOpacity<ContainerProps>`
 export const Text = styled.Text`
   font-size: 14px;
   color: ${({ corTexto }: any) => corTexto};
-  //font-family: 'Istok Web';
 `;

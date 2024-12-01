@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, Image, TouchableOpacity, Alert } from 'react-native';
 import { Botao } from '../../components/Botao';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '@/src/utils/types';
@@ -24,10 +24,9 @@ export default function Login() {
     }, [])
   );
 
-
   const handleLogin = async () => {
     if (!email || !senha) {
-      alert('Por favor, preencha ambos os campos!');
+      Alert.alert('Falha no login!', 'Por favor, preencha ambos os campos!');
       return;
     }
     try {
@@ -41,14 +40,13 @@ export default function Login() {
         navigation.navigate('Auth', { screen: 'Principal' });
       } else {
         console.log('Login falhou!');
-        alert('Email ou senha incorretos.');
+        Alert.alert('Falha no login!', 'Email ou senha incorretos.');
       }
     } catch (error) {
       console.error('Erro ao fazer login:', error);
-      alert('Houve um erro ao tentar fazer login. Tente novamente.');
+      Alert.alert('Falha no login!', 'Houve um erro ao tentar fazer login. Tente novamente.');
     }
   };
-
 
   function handleCadastrar() {
     navigation.navigate('Cadastro');

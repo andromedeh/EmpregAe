@@ -7,7 +7,6 @@ export const ContainerPrincipal = styled.View`
 `;
 export const TextoCampo = styled.Text`
   margin-left: 35px;
-  //font-family: 'Istok Web';
   color: #265019;
   font-weight: bold;
   padding-top: 50px;
@@ -18,7 +17,6 @@ export const TextoHiperLinkContainer = styled(TouchableOpacity)`
   margin-top: 100px;
 `;
 export const TextoHiperLink = styled.Text`
-  //font-family: 'Istok Web';
   color: #265019;
   font-weight: bold;
   font-size: 14px;

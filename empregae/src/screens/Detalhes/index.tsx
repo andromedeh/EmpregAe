@@ -86,15 +86,16 @@ export default function Detalhes({ route }: any) {
           style={styles.flatList}
           showsVerticalScrollIndicator={true}
         />
-        <Botao
-          onPress={handleContatar}
-          texto="Contatar"
-          tamanho={96}
-          corFundo="#5FB643"
-          corTexto="#FFFFFF"
-          marginTop={10}
-          disabled={vaga.status !== 'aberta'}
-        />
+        {vaga.status === 'aberta' && (
+          <Botao
+            onPress={handleContatar}
+            texto="Contatar"
+            tamanho={96}
+            corFundo='#5FB643'
+            corTexto='#FFFFFF'
+            marginTop={10}
+          />
+        )}
       </ContainerPrincipal>
       <BarraInferior />
     </Wrapper>

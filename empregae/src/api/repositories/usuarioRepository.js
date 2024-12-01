@@ -6,7 +6,7 @@ let usuarios = [];
 
 async function findAll() {
   try {
-    return await Usuario.findAll(); // Consulta todos os usuários no banco de dados
+    return await Usuario.findAll();
   } catch (error) {
     throw new Error('Error fetching all jobs: ' + error.message);
   }
@@ -14,7 +14,7 @@ async function findAll() {
 
 async function findById(id) {
   try {
-    return await Usuario.findByPk(id); // Busca um usuário pelo ID
+    return await Usuario.findByPk(id);
   } catch (error) {
     throw new Error('Error fetching job by id: ' + error.message);
   }
@@ -22,7 +22,7 @@ async function findById(id) {
 
 async function create({ nome, email, senha }) {
   try {
-    return await Usuario.create({ nome, email, senha }); // Cria um novo usuário no banco
+    return await Usuario.create({ nome, email, senha });
   } catch (error) {
     throw new Error('Error creating job: ' + error.message);
   }
@@ -34,7 +34,7 @@ async function remove(id) {
     if (!usuario) {
       return false;
     }
-    await usuario.destroy(); // Remove o usuário do banco de dados
+    await usuario.destroy();
     return true;
   } catch (error) {
     throw new Error('Error deleting job: ' + error.message);
@@ -50,7 +50,7 @@ async function update(id, { nome, email, senha }) {
     usuario.nome = nome;
     usuario.email = email;
     usuario.senha = senha;
-    await usuario.save(); // Salva as alterações no banco de dados
+    await usuario.save();
     return usuario;
   } catch (error) {
     throw new Error('Error updating job: ' + error.message);

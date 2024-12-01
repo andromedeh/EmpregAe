@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 const usuarioRepository = require('../repositories/usuarioRepository');
 
-router.get('/', async (req, res) => { // pegar todos usuarios
+router.get('/', async (req, res) => { 
     const usuarios = await usuarioRepository.findAll();
     res.json(usuarios);
 });
 
-router.get('/:id', async (req, res) => { // pegar usuario por id
+router.get('/:id', async (req, res) => { 
     const { id } = req.params;
     const usuario = await usuarioRepository.findById(id);
     if (usuario) {
@@ -17,13 +17,13 @@ router.get('/:id', async (req, res) => { // pegar usuario por id
     }
 });
 
-router.post('/', async (req, res) => { // criar usuario
+router.post('/', async (req, res) => { 
     const { nome, email, senha } = req.body;
     const usuario = await usuarioRepository.create({ nome, email, senha });
     res.status(201).json(usuario);
 });
 
-router.put('/:id', async (req, res) => { // atualizar usuario
+router.put('/:id', async (req, res) => {
     const { id } = req.params;
     const { nome, email, senha } = req.body;
     const usuario = await usuarioRepository.update(id, { nome, email, senha });
@@ -34,7 +34,7 @@ router.put('/:id', async (req, res) => { // atualizar usuario
     }
 });
 
-router.delete('/:id', async (req, res) => { // deletar usuario
+router.delete('/:id', async (req, res) => { 
     const { id } = req.params;
     const deleted = await usuarioRepository.remove(id);
     if (deleted) {

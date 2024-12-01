@@ -24,7 +24,6 @@ export default function Cadastro({ route }: any) {
     }
 
     try {
-      // Verificar se o email já está registrado
       const response = await api.get('/api/usuarios', { params: { email } });
       const userExists = response.data.some((user: { email: string }) => user.email === email);
 

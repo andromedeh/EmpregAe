@@ -1,8 +1,8 @@
 import { RootStackParamList } from '@/src/utils/types';
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types';
 import { useNavigation } from 'expo-router';
-import { Alert, Image, View } from 'react-native';
-import { ContainerPrincipal, TextoCampo, TextoHiperLink, BotaoVoltar, TextoVoltar } from './styles';
+import { Alert, Image } from 'react-native';
+import { ContainerPrincipal, TextoCampo } from './styles';
 import { Campo } from '@/src/components/Campo';
 import { Botao } from '../../components/Botao';
 import { BarraInferior } from '../../components/BarraInferior';
@@ -19,16 +19,6 @@ export default function Usuario({ route }: any) {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-
-  const clearAll = async () => {
-    try {
-      await AsyncStorage.clear()
-    } catch (e) {
-      // clear error
-    }
-
-    console.log('Logout!')
-  }
 
   const handleEditar = async () => {
     try {
@@ -47,9 +37,9 @@ export default function Usuario({ route }: any) {
       });
 
       if (response.status === 200) {
-        alert('Dados atualizados com sucesso!');
+        Alert.alert('Alteração de Dados!', 'Dados alterados com sucesso!');
       } else {
-        alert('Falha ao atualizar os dados!');
+        Alert.alert('Alteração de Dados!', 'Falha ao atualizar os dados!');
       }
     } catch (e) {
       console.log("Erro ao atualizar!", e);

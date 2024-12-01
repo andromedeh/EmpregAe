@@ -6,9 +6,6 @@ import Cadastro from '../src/screens/Cadastro';
 import Usuario from '../src/screens/Usuario';
 import Detalhes from '../src/screens/Detalhes';
 import Principal from '../src/screens/Principal';
-import { ThemeProvider } from 'styled-components';
-import { StatusBar } from 'expo-status-bar';
-import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const Tab = createBottomTabNavigator();

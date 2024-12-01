@@ -42,7 +42,6 @@ export default function Principal({ route }: any) {
     return matchesID || matchesTitulo;
   });
 
-
   return (
     <Wrapper>
       <Image
@@ -88,7 +87,7 @@ export default function Principal({ route }: any) {
 
 const styles = StyleSheet.create({
   vagas: {
-    maxHeight: 512, // Define a altura máxima da FlatList
+    maxHeight: 512,
     marginBottom: 60,
   },
 });

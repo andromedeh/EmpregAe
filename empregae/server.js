@@ -11,14 +11,12 @@ app.get('/', (req, res) => {
     res.send('Servidor está funcionando!');
 });
 
-// sincronizar BD
 sequelize.sync().then(() => {
     console.log('Database synchronized');
 }).catch(err => {
     console.error('Unable to synchronize the database:', err);
 });
 
-// definindo as rotas
 app.use('/api/usuarios', usuariosRoutes);
 app.use('/api/vagas', vagasRoutes);
 
