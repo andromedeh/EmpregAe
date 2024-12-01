@@ -2,11 +2,10 @@ import { RootStackParamList, VagaProps } from '@/src/utils/types';
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types';
 import { useNavigation } from 'expo-router';
 import { FlatList, Image, StyleSheet } from 'react-native';
-import { Wrapper, ContainerPrincipal, Imagem, TextoCampo, TextoHiperLink, BotaoVoltar, TextoVoltar } from './styles';
+import { Wrapper, ContainerPrincipal, Imagem, TextoCampo } from './styles';
 import { Campo } from '@/src/components/Campo';
 import { Botao } from '../../components/Botao';
 import { BarraInferior } from '../../components/BarraInferior';
-import { Feather } from '@expo/vector-icons';
 import { Linking } from 'react-native';
 
 type PropsNavigate = NativeStackScreenProps<RootStackParamList>;
@@ -33,7 +32,7 @@ export default function Detalhes({ route }: any) {
   ];
 
   const renderItem = ({ item }: { item: { label: string, texto: string } }) => {
-    const alturaCampo = item.label === 'Descrição' ? 86 : 49; // Aumenta a altura do campo "Descrição"
+    const alturaCampo = item.label === 'Descrição' ? 86 : 49;
     return (
       <>
         <TextoCampo>{item.label}</TextoCampo>
@@ -54,19 +53,13 @@ export default function Detalhes({ route }: any) {
   };
 
   function handleContatar() {
-    // Verifica se o telefone está presente
     if (!vaga.telefone) {
       alert('Número de telefone não disponível.');
       return;
     }
-
     const telefone = vaga.telefone?.toString();
+    const url = `https://wa.me/${telefone}`;
 
-    // Cria o link do WhatsApp (com o número da vaga e uma mensagem padrão)
-    const mensagem = `Olá, estou interessado na vaga de ${vaga.titulo}. Gostaria de mais informações.`;
-    const url = `whatsapp://send?phone=55${telefone}&text=${encodeURIComponent(mensagem)}`;
-
-    // Tenta abrir o link do WhatsApp
     Linking.openURL(url)
       .then(() => {
         console.log('Redirecionando para o WhatsApp...');
@@ -97,10 +90,10 @@ export default function Detalhes({ route }: any) {
           onPress={handleContatar}
           texto="Contatar"
           tamanho={96}
-          corFundo='#5FB643'
-          corTexto='#FFFFFF'
+          corFundo="#5FB643"
+          corTexto="#FFFFFF"
           marginTop={10}
-          disabled={vaga.status !== 'aberta'}  // Desabilita o botão se o status não for 'aberto'
+          disabled={vaga.status !== 'aberta'}
         />
       </ContainerPrincipal>
       <BarraInferior />
@@ -110,7 +103,7 @@ export default function Detalhes({ route }: any) {
 
 const styles = StyleSheet.create({
   flatList: {
-    maxHeight: 512, // Define a altura máxima da FlatList
-    marginBottom: 20, // Espaço inferior entre a lista e o botão
+    maxHeight: 512,
+    marginBottom: 20,
   },
 });

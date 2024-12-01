@@ -1,11 +1,11 @@
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import { Botao } from '../../components/Botao';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '@/src/utils/types';
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Campo } from '@/src/components/Campo';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useState } from 'react';
 import api from '../../services/api';
 
@@ -16,6 +16,14 @@ export default function Login() {
 
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+
+  useFocusEffect(
+    useCallback(() => {
+      setEmail('');
+      setSenha('');
+    }, [])
+  );
+
 
   const handleLogin = async () => {
     if (!email || !senha) {
@@ -106,7 +114,6 @@ const styles = StyleSheet.create({
   },
   textoCampo: {
     marginLeft: 35,
-    //fontFamily: 'Istok Web',
     color: '#265019',
     fontWeight: 'bold',
     paddingTop: 50,
@@ -117,7 +124,6 @@ const styles = StyleSheet.create({
     marginTop: 150,
   },
   textoHiperLink: {
-    //fontFamily: 'Istok Web',
     color: '#265019',
     fontWeight: 'bold',
     fontSize: 14,

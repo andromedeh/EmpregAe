@@ -20,6 +20,16 @@ export default function Usuario({ route }: any) {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
+  const clearAll = async () => {
+    try {
+      await AsyncStorage.clear()
+    } catch (e) {
+      // clear error
+    }
+
+    console.log('Logout!')
+  }
+
   const handleEditar = async () => {
     try {
       const jsonValue = JSON.stringify({
@@ -72,7 +82,18 @@ export default function Usuario({ route }: any) {
   const navigation = useNavigation<PropsNavigate['navigation']>();
 
   function handleLogout() {
-    navigation.navigate('Login');
+    try {
+      AsyncStorage.clear()
+        .then(() => {
+          console.log('Dados locais limpos com sucesso.');
+          navigation.navigate('Login');
+        })
+        .catch((error) => {
+          console.error('Erro ao limpar dados locais: ', error);
+        });
+    } catch (e) {
+      console.error('Erro no logout:', e);
+    }
   }
 
   return (

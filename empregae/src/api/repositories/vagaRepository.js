@@ -30,7 +30,7 @@ async function create({ titulo, descricao, dataCadastro, telefone, status, empre
 
 async function update(id, { titulo, descricao, dataCadastro, telefone, status, empresa }) {
   try {
-    const vaga = await vaga.findByPk(id);
+    const vaga = await Vaga.findByPk(id);
     if (!vaga) {
       return null;
     }
@@ -42,7 +42,6 @@ async function update(id, { titulo, descricao, dataCadastro, telefone, status, e
     vaga.empresa = empresa;
     await vaga.save();
     return vaga;
-
   } catch (error) {
     throw new Error('Error updating job: ' + error.message);
   }
