@@ -10,8 +10,8 @@ type CampoProps = {
   corFundo?: string;
   corTexto?: string;
   corBorda?: string;
-  texto?: string;
   marginTop?: number;
+  texto?: string;
   icone?: keyof typeof Feather.glyphMap;
   editavel?: boolean;
   onChange?: (text: string) => void;
@@ -23,21 +23,22 @@ export function Campo({
   altura,
   borda,
   corFundo,
-  corTexto,
+  corTexto = '#000',
   corBorda,
   marginTop,
-  icone,
   texto,
+  icone,
   editavel = true,
   onChange
 }: CampoProps) {
   return (
-    <Container largura={largura} altura={altura} borda={borda} corFundo={corFundo} corBorda={corBorda} marginTop={marginTop} onChange={onChange}>
+    <Container largura={largura} altura={altura} borda={borda} corFundo={corFundo} corBorda={corBorda} marginTop={marginTop}>
       {editavel ? (
         <Texto
           placeholder={placeholder}
           placeholderTextColor={corTexto}
           style={{ color: corTexto }}
+          value={texto}
           onChangeText={onChange}
         />
       ) : (

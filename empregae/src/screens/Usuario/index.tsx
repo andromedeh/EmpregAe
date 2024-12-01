@@ -7,6 +7,7 @@ import { Campo } from '@/src/components/Campo';
 import { Botao } from '../../components/Botao';
 import { BarraInferior } from '../../components/BarraInferior';
 import { Feather } from '@expo/vector-icons';
+import { useState } from 'react';
 
 type PropsNavigate = NativeStackScreenProps<RootStackParamList>;
 
@@ -41,6 +42,7 @@ export default function Usuario({ route }: any) {
         corTexto="#265019"
         corBorda="#265019"
         marginTop={10}
+        editavel={false}
       />
       <TextoCampo>Email</TextoCampo>
       <Campo
@@ -52,6 +54,8 @@ export default function Usuario({ route }: any) {
         corTexto="#265019"
         corBorda="#265019"
         marginTop={10}
+        editavel={false}
+
       />
       <TextoCampo>Senha</TextoCampo>
       <Campo
@@ -63,6 +67,7 @@ export default function Usuario({ route }: any) {
         corTexto="#265019"
         corBorda="#265019"
         marginTop={10}
+        editavel={false}
       />
       <Botao
         onPress={() => handleLogin()}
