@@ -1,7 +1,7 @@
 {
-  "name": "empregae",
-  "main": "expo-router/entry",
+  "name": "empregae-api",
   "version": "1.0.0",
+  "main": "server.js",
   "scripts": {
     "start": "nodemon --exec node server.js",
     "reset-project": "node ./scripts/reset-project.js",

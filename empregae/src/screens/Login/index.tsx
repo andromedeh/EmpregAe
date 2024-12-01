@@ -27,7 +27,6 @@ export default function Login() {
     try {
       const response = await api.get('/api/usuarios');
       const users = response.data;
-
       const user = users.find((u: { email: string; senha: string }) => u.email === email && u.senha === senha);
 
       if (user) {
