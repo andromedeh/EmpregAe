@@ -1,4 +1,4 @@
-import { RootStackParamList } from '@/src/utils/types';
+import { RootStackParamList, VagaProps } from '@/src/utils/types';
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types';
 import { useNavigation } from 'expo-router';
 import { FlatList, Image, StyleSheet } from 'react-native';
@@ -7,6 +7,7 @@ import { Campo } from '@/src/components/Campo';
 import { Botao } from '../../components/Botao';
 import { BarraInferior } from '../../components/BarraInferior';
 import { Feather } from '@expo/vector-icons';
+import { Linking } from 'react-native';
 
 type PropsNavigate = NativeStackScreenProps<RootStackParamList>;
 
@@ -14,19 +15,23 @@ export default function Detalhes({ route }: any) {
 
   const navigation = useNavigation<PropsNavigate['navigation']>();
 
-  function handleLogin() {
-    navigation.navigate('Login');
-  }
+  const vaga: VagaProps = route.params?.vaga || {};
 
   const campos = [
-    { label: 'Título da vaga', texto: 'Texto...' },
-    { label: 'ID', texto: 'Texto...' },
-    { label: 'Status', texto: 'Texto...' },
-    { label: 'Data de Cadastro', texto: 'Texto...' },
-    { label: 'Descrição', texto: 'Texto...' },
-    { label: 'Telefone', texto: 'Texto...' },
-    { label: 'Empresa', texto: 'Texto...' },
+    { label: 'ID', texto: vaga.id?.toString() || 'N/A' },
+    { label: 'Título da vaga', texto: vaga.titulo || 'N/A' },
+    { label: 'Descrição', texto: vaga.descricao || 'N/A' },
+    {
+      label: 'Data de Cadastro',
+      texto: vaga.dataCadastro
+        ? new Date(vaga.dataCadastro).toLocaleDateString() || 'N/A'
+        : 'N/A',
+    },
+    { label: 'Telefone', texto: vaga.telefone?.toString() || 'N/A' },
+    { label: 'Status', texto: vaga.status || 'N/A' },
+    { label: 'Empresa', texto: vaga.empresa || 'N/A' },
   ];
+
   const renderItem = ({ item }: { item: { label: string, texto: string } }) => {
     const alturaCampo = item.label === 'Descrição' ? 86 : 49; // Aumenta a altura do campo "Descrição"
     return (
@@ -48,6 +53,30 @@ export default function Detalhes({ route }: any) {
     );
   };
 
+  function handleContatar() {
+    // Verifica se o telefone está presente
+    if (!vaga.telefone) {
+      alert('Número de telefone não disponível.');
+      return;
+    }
+
+    const telefone = vaga.telefone?.toString();
+
+    // Cria o link do WhatsApp (com o número da vaga e uma mensagem padrão)
+    const mensagem = `Olá, estou interessado na vaga de ${vaga.titulo}. Gostaria de mais informações.`;
+    const url = `whatsapp://send?phone=55${telefone}&text=${encodeURIComponent(mensagem)}`;
+
+    // Tenta abrir o link do WhatsApp
+    Linking.openURL(url)
+      .then(() => {
+        console.log('Redirecionando para o WhatsApp...');
+      })
+      .catch((error) => {
+        console.error('Erro ao tentar abrir o WhatsApp: ', error);
+        alert('Erro ao tentar abrir o WhatsApp. Verifique se ele está instalado.');
+      });
+  }
+
   return (
     <Wrapper>
       <Imagem>
@@ -65,7 +94,7 @@ export default function Detalhes({ route }: any) {
           showsVerticalScrollIndicator={true}
         />
         <Botao
-          onPress={() => handleLogin()}
+          onPress={handleContatar}
           texto="Contatar"
           tamanho={96}
           corFundo='#5FB643'

@@ -5,15 +5,47 @@ import { RootStackParamList } from '@/src/utils/types';
 import { NativeStackScreenProps } from 'react-native-screens/lib/typescript/native-stack/types';
 import { Campo } from '@/src/components/Campo';
 import React from 'react';
+import { useState } from 'react';
+import api from '../../services/api';
+
 type Props = NativeStackScreenProps<RootStackParamList>;
-export default function Home() {
+
+export default function Login() {
+
   const navigation = useNavigation<Props['navigation']>();
-  function handleLogin() {
-    navigation.navigate('Principal');
-  }
+
+
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+
+  const handleLogin = async () => {
+    if (!email || !senha) {
+      alert('Por favor, preencha ambos os campos!');
+      return;
+    }
+
+    try {
+      const response = await api.get('/api/usuarios');
+      const users = response.data;
+      const user = users.find((u: { email: string; senha: string }) => u.email === email && u.senha === senha);
+
+      if (user) {
+        navigation.navigate('Principal');
+      } else {
+        console.log('Login falhou!');
+        alert('Email ou senha incorretos.');
+      }
+    } catch (error) {
+      console.error('Erro ao fazer login:', error);
+      alert('Houve um erro ao tentar fazer login. Tente novamente.');
+    }
+  };
+
+
   function handleCadastrar() {
     navigation.navigate('Cadastro');
   }
+
   return (
     <View style={styles.container}>
       <Image
@@ -32,6 +64,8 @@ export default function Home() {
         corTexto="#265019"
         corBorda="#265019"
         marginTop={10}
+        texto={email}
+        onChange={setEmail}
       />
       <Text style={styles.textoCampo}>
         Senha
@@ -45,9 +79,11 @@ export default function Home() {
         corTexto="#265019"
         corBorda="#265019"
         marginTop={10}
+        texto={senha}
+        onChange={setSenha}
       />
       <Botao
-        onPress={() => handleLogin()}
+        onPress={handleLogin}
         texto="Entrar"
         tamanho={96}
         corFundo="#5FB643"
@@ -62,6 +98,7 @@ export default function Home() {
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
